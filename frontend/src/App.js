@@ -1,13 +1,24 @@
 import React from 'react';
+import Footer from './components/Footer';
+import Header from './components/Header';
+import Homescreen from './screens/Homescreen';
 
 function App() {
   return (
-    <div>
+
+    <>
+    <Header/>
+    <main className="py-3">
     
-    <h1>
-      Hello world
-    </h1>
-    </div>
+<Homescreen/>
+
+ 
+    </main>
+
+
+    <Footer/>
+
+</>
     
   );
 }
