@@ -1,0 +1,15 @@
+{
+  "name": "mern_ecommerce",
+  "version": "1.0.0",
+  "description": "MERN ECOMMERCE",
+  "main": "server.js",
+  "scripts": {
+    "start": "nodemon backend/server"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.17.1",
+    "nodemon": "^2.0.6"
+  }
+}
