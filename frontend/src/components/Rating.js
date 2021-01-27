@@ -3,8 +3,6 @@ import React from 'react'
 const Rating = ({ value, text, color }) => {
   return (
     <div className='rating'>
-          {/* <span>{`Rating ${value}`}</span>
-          <br></br> */}
       <span>
         <i
           style={{ color }}
@@ -65,9 +63,7 @@ const Rating = ({ value, text, color }) => {
           }
         ></i>
       </span>
-    
-      <span>{text }</span>
-      
+      <span>{text && text}</span>
     </div>
   )
 }

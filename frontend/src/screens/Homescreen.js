@@ -1,34 +1,62 @@
-import React,{useState,useEffect} from "react";
-import { Col, Row } from "react-bootstrap";
+import React, { useEffect } from 'react'
+import { Link } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import { Row, Col } from 'react-bootstrap'
+import Product from '../components/Product'
+import Message from '../components/Message'
+import Loader from '../components/Loader'
+import Paginate from '../components/Paginate'
+import ProductCarousel from '../components/ProductCarousel'
+import Meta from '../components/Meta'
+import { listProducts } from '../actions/productActions'
 
-import Product from "../components/Product";
-import axios from 'axios'
+const HomeScreen = ({ match }) => {
+  const keyword = match.params.keyword
 
-function Homescreen() {
-  const [products,setProducts]=useState([])
+  const pageNumber = match.params.pageNumber || 1
 
-  useEffect(()=>{
-    const fetchProducts =async () =>{
-      const {data} =await axios.get('/api/products')
+  const dispatch = useDispatch()
 
-      setProducts(data)
-    }
+  const productList = useSelector((state) => state.productList)
+  const { loading, error, products, page, pages } = productList
 
-    fetchProducts()
-  },[])
+  useEffect(() => {
+    dispatch(listProducts(keyword, pageNumber))
+  }, [dispatch, keyword, pageNumber])
 
   return (
-    <div>
+    <>
+      <Meta />
+      {!keyword ? (
+        <ProductCarousel />
+      ) : (
+        <Link to='/' className='btn btn-light'>
+          Go Back
+        </Link>
+      )}
       <h1>Latest Products</h1>
-      <Row>
-        {products.map((product) => (
-          <Col key={product._id} sm={12} md={6} lg={4} xl={3}>
-            <Product product={product} />
-          </Col>
-        ))}
-      </Row>
-    </div>
-  );
+      {loading ? (
+        <Loader />
+      ) : error ? (
+        <Message variant='danger'>{error}</Message>
+      ) : (
+        <>
+          <Row>
+            {products.map((product) => (
+              <Col key={product._id} sm={12} md={6} lg={4} xl={3}>
+                <Product product={product} />
+              </Col>
+            ))}
+          </Row>
+          <Paginate
+            pages={pages}
+            page={page}
+            keyword={keyword ? keyword : ''}
+          />
+        </>
+      )}
+    </>
+  )
 }
 
-export default Homescreen;
+export default HomeScreen
