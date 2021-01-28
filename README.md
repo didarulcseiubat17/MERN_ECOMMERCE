@@ -2,7 +2,10 @@
 ```
 NODE_ENV = development
 PORT = 5000
-MONGO_URI = your mongodb uri
+
+MONGO_URI=mongodb+srv://didarul21:WhoamI21@cluster0.b2511.mongodb.net/ecommerce?retryWrites=true&w=majority
+
+JWT_SECRET=
 JWT_SECRET = 'abc123'
 
 ```
